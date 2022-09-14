@@ -49,34 +49,39 @@ function addItem(e){
         
 
         //create li element
-        var li = document.createElement('li')
-        li.className='list-group'
+        var li = document.createElement('div')
+        li.className='row list-group'
         li.id= Obj.desc
         li.style.color="white"
 
         //create textnode
+        var col1 = document.createElement('div')
         var text= document.createTextNode("amount: "+
          Obj.amount+" description: "+Obj.desc+" category: "+ Obj.cat)
+         col1.appendChild(text)
+         col1.className= "col col-sm-6 mt-2"
 
          //create delete btn
+         var col2 = document.createElement("div")
          var delBtn = document.createElement('button')
          delBtn.className = "btn btn-danger btn-sm  float-right"
          delBtn.appendChild(document.createTextNode("X"))
          delBtn.addEventListener("click",removeItem)
+         col1.appendChild(delBtn)
          
 
          //createEdit btn 
-         
+         var col3 = document.createElement('div')
          var editBtn = document.createElement('button')
-         editBtn.className = "btn btn-primary btn-sm float-right delete col"
+         editBtn.className = "btn btn-primary btn-sm float-right mr-2"
          editBtn.value="edit"
         editBtn.innerText="edit"
         editBtn.addEventListener('click',editItem)
+        col1.appendChild(editBtn)
 
         //add to li 
-        li.appendChild(text)
-        li.appendChild(delBtn)
-        li.appendChild(editBtn)
+        li.appendChild(col1)
+
 
         // to delete existing
         
@@ -87,7 +92,7 @@ function addItem(e){
 
         
         function removeItem(e){
-            var li = e.target.parentElement
+            var li = e.target.parentElement.parentElement
             list.removeChild(li)
             localStorage.removeItem('user'+Obj.desc)
 
