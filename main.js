@@ -19,27 +19,27 @@ function addItem(e){
     e.preventDefault()
 
     //get values
-    let amount = document.getElementById("expense").value 
-    let desc = document.getElementById("desc").value 
-    let category= document.getElementById("cat").value
+    let name = document.getElementById("name").value 
+    let email = document.getElementById("email").value 
+    let phone= document.getElementById("phone").value
 
     //make values to object
     myObj = {
-        amount : amount,
-        desc: desc,
-        cat :  category
+        name : name,
+        email: email,
+        phone :  phone
     }
 
     //check if exist on localStorage
-    if(localStorage.getItem("user"+myObj.desc )!== null ){
-        var del = document.getElementById(myObj.desc) 
+    if(localStorage.getItem("user"+myObj.email )!== null ){
+        var del = document.getElementById(myObj.email) 
         del.remove();
     }
 
     addElement(myObj)
     //add to local
     serial = JSON.stringify(myObj)
-    localStorage.setItem("user"+myObj.desc,serial)
+    axios.post("https://crudcrud.com/api/cf39668d4a244a4cb6f7d95d5c7378d8/appointmentData",myObj)
 }
 
     function addElement(Obj){
@@ -51,13 +51,13 @@ function addItem(e){
         //create li element
         var li = document.createElement('div')
         li.className='row list-group'
-        li.id= Obj.desc
+        li.id= Obj.email
         li.style.color="white"
 
         //create textnode
         var col1 = document.createElement('div')
-        var text= document.createTextNode("amount: "+
-         Obj.amount+" description: "+Obj.desc+" category: "+ Obj.cat)
+        var text= document.createTextNode("Name: "+
+         Obj.name+" Email: "+Obj.email+" Phone: "+ Obj.phone)
          col1.appendChild(text)
          col1.className= "col col-sm-6 mt-2"
 
@@ -94,17 +94,17 @@ function addItem(e){
         function removeItem(e){
             var li = e.target.parentElement.parentElement
             list.removeChild(li)
-            localStorage.removeItem('user'+Obj.desc)
+            localStorage.removeItem('user'+Obj.email)
 
         }
     
         function  editItem(e){
             //to be writen
             var li = e.target.parentElement
-            localStorage.removeItem('user'+Obj.desc)      
-            document.getElementById("expense").value = Obj.amount
-            document.getElementById("desc").value  = Obj.desc
-            document.getElementById("cat").value = Obj.cat
+            localStorage.removeItem('user'+Obj.email)      
+            document.getElementById("expense").value = Obj.name
+            document.getElementById("desc").value  = Obj.email
+            document.getElementById("cat").value = Obj.phone
     
             list.removeChild(li)
     
