@@ -101,10 +101,11 @@ function addItem(e){
         list.appendChild(li)
 
         
-        function removeItem(e){
+       async  function removeItem(e){
             var li = e.target.parentElement.parentElement
-            list.removeChild(li)
-            localStorage.removeItem('user'+Obj.email)
+            
+            axios.delete('https://crudcrud.com/api/cf39668d4a244a4cb6f7d95d5c7378d8/appointmentData/'+Obj._id)
+            await list.removeChild(li)
 
         }
     
