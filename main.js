@@ -5,15 +5,25 @@ form.addEventListener('submit',addItem)
 window.addEventListener('DOMContentLoaded',remember)
 
 function remember(){
-    var key = Object.keys(localStorage)
-    i=key.length
-    for(let j=0;j<i;j++){
-        console.log(key[j])
-        let serial = localStorage.getItem(key[j])
-        let Obj = JSON.parse(serial)
-        addElement(Obj)
-    }
-}
+
+    axios.get("https://crudcrud.com/api/cf39668d4a244a4cb6f7d95d5c7378d8/appointmentData")
+    .then((response)=>{
+        console.log(response)
+        for(let i=0;i<response.data.length;i++){
+            let serial = response.data[i]
+            addElement(serial)
+
+        }
+    })
+//     var key = Object.keys(localStorage)
+//     i=key.length
+//     for(let j=0;j<i;j++){
+//         console.log(key[j])
+//         let serial = localStorage.getItem(key[j])
+//         let Obj = JSON.parse(serial)
+//         addElement(Obj)
+//     }
+ }
 
 function addItem(e){
     e.preventDefault()
