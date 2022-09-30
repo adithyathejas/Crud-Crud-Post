@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded',remember)
 
 function remember(){
 
-    axios.get("https://crudcrud.com/api/5db7ab91265c49b3818452484216224e/appointmentData")
+    axios.get("https://crudcrud.com/api/b362195124e24422a7e46da73ca95581/appointmentData")
     .then((response)=>{
         console.log(response)
         for(let i=0;i<response.data.length;i++){
@@ -25,7 +25,7 @@ function remember(){
 //     }
  }
 
-function addItem(e){
+async  function addItem(e){
     e.preventDefault()
 
     //get values
@@ -41,22 +41,23 @@ function addItem(e){
     }
     let flag = 0
     //check if exist on crud crud
-    axios.get("https://crudcrud.com/api/5db7ab91265c49b3818452484216224e/appointmentData")
+   await  axios.get("https://crudcrud.com/api/b362195124e24422a7e46da73ca95581/appointmentData")
     .then((response)=>{
         console.log(response)
         
         for(let i=0;i<response.data.length;i++){
             if(response.data[i].email==window.myObj.email){
-                axios.put('https://crudcrud.com/api/5db7ab91265c49b3818452484216224e/appointmentData/'+Obj._id,window.myObj)
-                flag = 1
+             flag=1
+             axios.put('https://crudcrud.com/api/b362195124e24422a7e46da73ca95581/appointmentData/'+response.data[i]._id,window.myObj)
             }
         }
     })
 
     addElement(myObj)
     //add to crud crud 
-    if(fag==0){
-        axios.post("https://crudcrud.com/api/5db7ab91265c49b3818452484216224e/appointmentData",myObj)
+    if(flag==0){
+        axios.post("https://crudcrud.com/api/b362195124e24422a7e46da73ca95581/appointmentData",myObj)
+        console.log("flag: ",flag)
     }
         
      
@@ -117,7 +118,7 @@ function addItem(e){
        async  function removeItem(e){
             var li = e.target.parentElement.parentElement
             
-            await axios.delete('https://crudcrud.com/api/5db7ab91265c49b3818452484216224e/appointmentData/'+Obj._id)
+            await axios.delete('https://crudcrud.com/api/b362195124e24422a7e46da73ca95581/appointmentData/'+Obj._id)
              list.removeChild(li)
 
         }
@@ -130,7 +131,7 @@ function addItem(e){
             document.getElementById("email").value  = Obj.email
             document.getElementById("phone").value = Obj.phone
            
-            // await axios.delete('https://crudcrud.com/api/5db7ab91265c49b3818452484216224e/appointmentData/'+Obj._id)
+            // await axios.delete('https://crudcrud.com/api/b362195124e24422a7e46da73ca95581/appointmentData/'+Obj._id)
             list.removeChild(li)
         }
 
